@@ -1,4 +1,6 @@
-// @ts-nocheck test file contains web api's that are not availalbe in node environment for typescript
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck test file contains web api's that are not available in node environment for typescript
+
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import {
     extractUtmParams,
@@ -13,6 +15,7 @@ import {
 } from '@testing-library/react';
 import React, { useEffect } from 'react';
 import { MixpanelEvent } from '../lib/mixpanel';
+import { WebTrackingService } from '../lib/mixpanel/tracking/WebTrackingService';
 
 describe('UTM tags', () => {
     const urlContainingUTMParams = new URL(
@@ -58,6 +61,7 @@ describe('MixpanelContext', () => {
     }) => (
         <MixpanelProvider
             eventApiClient={eventApiClient}
+            trackingService={new WebTrackingService(eventApiClient)}
             defaultEventContext={defaultEventContext}
         >
             {children}
@@ -76,11 +80,7 @@ describe('MixpanelContext', () => {
         });
     };
 
-    function TrackEventTestingComponent({
-        defaultEventContext,
-    }: {
-        defaultEventContext?: MixpanelEvent['context'];
-    }) {
+    function TrackEventTestingComponent({defaultEventContext}: { defaultEventContext?: MixpanelEvent['context']; }) {
         const { trackEvent, setEventContext } = useMixpanelContext();
 
         useEffect(() => {
