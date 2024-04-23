@@ -84,6 +84,11 @@ export function MixpanelProvider({
     );
 
     useEffect(() => {
+        // Only run on Web / Client
+        if (typeof window === 'undefined') {
+            return;
+        }
+
         writeUtmParamsToSessionStorage(window.location.search);
     }, []);
 
