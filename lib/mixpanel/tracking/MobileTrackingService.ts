@@ -1,11 +1,12 @@
 import { TrackingService } from './TrackingService.ts';
-import { MobileMixpanelEvent, MobileMixpanelPageViewEvent } from '../types/mobileTypes.ts';
-
+import {
+    MobileMixpanelEvent,
+    MobileMixpanelPageViewEvent,
+} from '../types/mobileTypes.ts';
 
 interface EventApiClient {
     (args: MobileMixpanelEvent | MobileMixpanelPageViewEvent): Promise<unknown>;
 }
-
 
 export class MobileTrackingService implements TrackingService {
     private eventApiClient: EventApiClient;

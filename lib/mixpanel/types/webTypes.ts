@@ -1,23 +1,10 @@
-
-import { BaseMixpanelEvent, BaseEventContext, BaseEventData } from './baseTypes.ts';
-
-export interface WebEventContext extends BaseEventContext {
-    title?: string;
-    pathname?: string;
-    href?: string;
-    route?: string;
-    audience?: string;
-    section?: string;
-    pwa?: boolean;
-}
-
-export interface WebEventData extends BaseEventData {
-    pathname: string;
-    href?: string;
-    route?: string;
-    audience?: string;
-}
-
+import {
+    BaseEventContext,
+    BaseEventData,
+    BaseMixpanelEvent,
+    MixpanelBaseEventData,
+    MixpanelEventContext,
+} from './baseTypes.ts';
 
 /**
  * @description
@@ -46,8 +33,13 @@ export interface WebEventData extends BaseEventData {
  * }
  */
 export interface WebMixpanelEvent extends BaseMixpanelEvent {
-    context?: WebEventContext;
-    data?: WebEventData;
+    context?: {
+        pathname?: string;
+        href?: string;
+        route?: string;
+        pwa?: boolean;
+    } & MixpanelEventContext;
+    data?: BaseEventData;
 }
 
 /**
@@ -57,13 +49,6 @@ export interface WebMixpanelEvent extends BaseMixpanelEvent {
  *
  * @example
  * const event: MixpanelPageViewEvent = {
- *    data: {
- *      title: 'Product Page', // What page is the event triggered on
- *      pathname: '/product/123', // Make sure there aren't any personal info in the path
- *      href: 'https://www.example.com/product/123', // Make sure there aren't any personal info in the href
- *      route: '/product/:id',
- *      audience: 'Freelancer', // The audience that is viewing the page
- *   },
  *   context: { // This is optional and will be mostly provided by the MixpanelProvider
  *      pwa: true, // Is the event triggered in a PWA
  *      utm_source: 'Facebook', // track the source where traffic is coming from, including a website or advertiser
@@ -72,9 +57,23 @@ export interface WebMixpanelEvent extends BaseMixpanelEvent {
  *      utm_content: 'cta button', //track the specific link within in an ad that a user clicked
  *      utm_term: 'tv sale', // track keywords associated with campaigns
  *   }
+ *   data: {
+ *      title: 'Product Page', // What page is the event triggered on
+ *      pathname: '/product/123', // Make sure there aren't any personal info in the path
+ *      href: 'https://www.example.com/product/123', // Make sure there aren't any personal info in the href
+ *      route: '/product/:id',
+ *      audience: 'Freelancer', // The audience that is viewing the page
+ *   },
  *}
  */
 export interface WebMixpanelPageViewEvent {
-    context?: WebEventContext;
-    data: WebEventData;
+    context?: {
+        pwa?: boolean;
+    } & BaseEventContext;
+    data: {
+        title: string;
+        pathname: string;
+        href: string;
+        route: string;
+    } & MixpanelBaseEventData;
 }

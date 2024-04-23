@@ -8,8 +8,17 @@ export interface BaseEventContext {
 }
 
 export interface BaseEventData {
-    title?: string;
     [key: string]: unknown;
+}
+
+export interface MixpanelEventContext extends BaseEventContext {
+    title?: string;
+    audience?: string;
+    section?: string;
+}
+
+export interface MixpanelBaseEventData extends BaseEventData {
+    audience: string;
 }
 
 export interface BaseMixpanelEvent {

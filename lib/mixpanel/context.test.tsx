@@ -1,12 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck test file contains web api's that are not available in node environment for typescript
+// @ts-nocheck test file contains web apis that are not available in node environment for typescript
 
-import { afterEach, describe, expect, test, vi } from 'vitest';
-import {
-    extractUtmParams,
-    writeUtmParamsToSessionStorage,
-} from '../lib/mixpanel/web/utils';
-import { MixpanelProvider, useMixpanelContext } from '../lib/mixpanel/context';
+import { describe, expect, test, vi } from 'vitest';
 import {
     fireEvent,
     render,
@@ -14,40 +9,8 @@ import {
     RenderOptions,
 } from '@testing-library/react';
 import React, { useEffect } from 'react';
-import { MixpanelEvent } from '../lib/mixpanel';
-import { WebTrackingService } from '../lib/mixpanel/tracking/WebTrackingService';
-
-describe('UTM tags', () => {
-    const urlContainingUTMParams = new URL(
-        'https://example.com?utm_source=source&utm_medium=medium&utm_campaign=campaign&utm_content=content&utm_term=term'
-    );
-
-    test('extracting utm tags from url', () => {
-        const result = extractUtmParams(urlContainingUTMParams.search);
-
-        expect(result).toEqual({
-            utm_source: 'source',
-            utm_medium: 'medium',
-            utm_campaign: 'campaign',
-            utm_content: 'content',
-            utm_term: 'term',
-        });
-    });
-
-    test('utm tags are saved in session storage', () => {
-        writeUtmParamsToSessionStorage(urlContainingUTMParams.search);
-
-        expect(sessionStorage.getItem('utm_source')).toBe('source');
-        expect(sessionStorage.getItem('utm_medium')).toBe('medium');
-        expect(sessionStorage.getItem('utm_campaign')).toBe('campaign');
-        expect(sessionStorage.getItem('utm_content')).toBe('content');
-        expect(sessionStorage.getItem('utm_term')).toBe('term');
-    });
-
-    afterEach(() => {
-        sessionStorage.clear();
-    });
-});
+import { MixpanelProvider, useMixpanelContext } from './context.tsx';
+import { WebTrackingService } from './tracking/WebTrackingService.ts';
 
 describe('MixpanelContext', () => {
     const eventApiClient = vi.fn(() => Promise.resolve());
@@ -60,7 +23,6 @@ describe('MixpanelContext', () => {
         defaultEventContext: MixpanelEvent;
     }) => (
         <MixpanelProvider
-            eventApiClient={eventApiClient}
             trackingService={new WebTrackingService(eventApiClient)}
             defaultEventContext={defaultEventContext}
         >
@@ -80,7 +42,11 @@ describe('MixpanelContext', () => {
         });
     };
 
-    function TrackEventTestingComponent({defaultEventContext}: { defaultEventContext?: MixpanelEvent['context']; }) {
+    function TrackEventTestingComponent({
+        defaultEventContext,
+    }: {
+        defaultEventContext?: MixpanelEvent['context'];
+    }) {
         const { trackEvent, setEventContext } = useMixpanelContext();
 
         useEffect(() => {

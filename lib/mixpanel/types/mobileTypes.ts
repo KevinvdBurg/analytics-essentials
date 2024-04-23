@@ -1,20 +1,23 @@
-import { BaseMixpanelEvent, BaseEventContext, BaseEventData } from './baseTypes.ts';
-
-interface MobileEventContext extends BaseEventContext {
-    screen?: string; // e.g., 'Home', 'Settings'
-}
-
-interface MobileEventData extends BaseEventData {
-    screen: string;
-    section?: string;
-}
+import {
+    BaseEventContext,
+    BaseEventData,
+    BaseMixpanelEvent,
+    MixpanelBaseEventData,
+    MixpanelEventContext,
+} from './baseTypes.ts';
 
 export interface MobileMixpanelEvent extends BaseMixpanelEvent {
-    context?: MobileEventContext;
-    data?: MobileEventData;
+    context?: {
+        screenName?: string;
+        route?: string;
+    } & MixpanelEventContext;
+    data?: BaseEventData;
 }
 
 export interface MobileMixpanelPageViewEvent {
-    context?: MobileEventContext;
-    data: MobileEventData;
+    context?: BaseEventContext;
+    data: {
+        title: string;
+        route: string;
+    } & MixpanelBaseEventData;
 }
