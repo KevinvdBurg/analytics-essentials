@@ -1,3 +1,24 @@
+
+import { BaseMixpanelEvent, BaseEventContext, BaseEventData } from './baseTypes.ts';
+
+export interface WebEventContext extends BaseEventContext {
+    title?: string;
+    pathname?: string;
+    href?: string;
+    route?: string;
+    audience?: string;
+    section?: string;
+    pwa?: boolean;
+}
+
+export interface WebEventData extends BaseEventData {
+    pathname: string;
+    href?: string;
+    route?: string;
+    audience?: string;
+}
+
+
 /**
  * @description
  * Mixpanel event we will pass this event to our own backend that is used as a proxy for Mixpanel. Almost everything is optional. The only required field is `name`.
@@ -24,27 +45,10 @@
  *      }
  * }
  */
-export type MixpanelEvent = {
-    name: string;
-    context?: {
-        title?: string;
-        pathname?: string;
-        href?: string;
-        route?: string;
-        audience?: string;
-        section?: string;
-        pwa?: boolean;
-        utm_source?: string;
-        utm_medium?: string;
-        utm_campaign?: string;
-        utm_content?: string;
-        utm_term?: string;
-        [key: string]: unknown;
-    };
-    data?: {
-        [key: string]: unknown;
-    };
-};
+export interface WebMixpanelEvent extends BaseMixpanelEvent {
+    context?: WebEventContext;
+    data?: WebEventData;
+}
 
 /**
  * @description
@@ -70,22 +74,7 @@ export type MixpanelEvent = {
  *   }
  *}
  */
-export type MixpanelPageViewEvent = {
-    context?: {
-        pwa?: boolean;
-        utm_source?: string;
-        utm_medium?: string;
-        utm_campaign?: string;
-        utm_content?: string;
-        utm_term?: string;
-        [key: string]: unknown;
-    };
-    data?: {
-        title?: string;
-        pathname: string;
-        href?: string;
-        route?: string;
-        audience?: string;
-        [key: string]: unknown;
-    };
-};
+export interface WebMixpanelPageViewEvent {
+    context?: WebEventContext;
+    data: WebEventData;
+}

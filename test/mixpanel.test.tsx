@@ -3,7 +3,7 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 import {
     extractUtmParams,
     writeUtmParamsToSessionStorage,
-} from '../lib/mixpanel/utils';
+} from '../lib/mixpanel/web/utils';
 import { MixpanelProvider, useMixpanelContext } from '../lib/mixpanel/context';
 import {
     fireEvent,
