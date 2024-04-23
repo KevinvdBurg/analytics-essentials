@@ -27,7 +27,7 @@ describe('WebTrackingService', () => {
 
     global.document = {
         title: 'Test Page',
-    } as any;
+    };
 
     beforeEach(() => {
         service = new WebTrackingService(mockEventApiClient);

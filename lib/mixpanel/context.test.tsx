@@ -35,7 +35,7 @@ describe('MixpanelContext', () => {
         options?: Omit<RenderOptions, 'wrapper'>
     ) => {
         return render(ui, {
-            wrapper: (props: any) => (
+            wrapper: (props) => (
                 <ContextWrapper {...props} {...options?.contextWrapperProps} />
             ),
             ...options?.testingLibraryOptions,
