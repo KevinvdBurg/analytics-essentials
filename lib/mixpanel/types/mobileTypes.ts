@@ -55,8 +55,6 @@ export interface MobileMixpanelEvent extends BaseMixpanelEvent {
  *   },
  *   data: {
  *     pathname: '/product/detail', // The path of the page where the event is triggered
- *     localSearchParams: { product_id: '123' }, // The local search params of the page where the event is triggered
- *     globalSearchParams: { global_id: '12' }, // The global search params of the page where the event is triggered
  *     audience: 'Freelancer', // The audience that is viewing the page
  *   },
  * };
@@ -65,7 +63,5 @@ export interface MobileMixpanelPageViewEvent {
   context?: BaseEventContext;
   data: {
     pathname?: string;
-    localSearchParams?: Record<string, string | string[]>;
-    globalSearchParams?: Record<string, string | string[]>;
   } & MixpanelBaseEventData;
 }
