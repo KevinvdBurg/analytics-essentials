@@ -40,6 +40,7 @@ export interface MobileMixpanelEvent extends BaseMixpanelEvent {
  * When sending a page view event to Mixpanel we will pass this event to our own backend that is used as a proxy for Mixpanel.
  * It differs from the `MixpanelEvent` in that it has a fixed `name` and information about the page should be provided
  *
+ *
  * For localSearchParams and globalSearchParams, we can use useLocalSearchParams and useGlobalSearchParams from expo-router
  * See: https://docs.expo.dev/router/reference/search-parameters/
  *
