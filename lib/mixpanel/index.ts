@@ -1,4 +1,4 @@
-export { MixpanelProvider, useMixpanelContext } from './context';
+export * from './context';
 
 export * from './types/baseTypes.ts';
 export * from './types/webTypes.ts';
