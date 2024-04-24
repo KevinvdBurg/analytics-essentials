@@ -22,7 +22,7 @@ export interface MixpanelBaseEventData extends BaseEventData {
 }
 
 export interface BaseMixpanelEvent {
-  name?: string;
+  name: string;
   context?: BaseEventContext;
   data?: BaseEventData;
 }
