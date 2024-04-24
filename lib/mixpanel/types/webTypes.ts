@@ -1,9 +1,9 @@
 import {
-    BaseEventContext,
-    BaseEventData,
-    BaseMixpanelEvent,
-    MixpanelBaseEventData,
-    MixpanelEventContext,
+  BaseEventContext,
+  BaseEventData,
+  BaseMixpanelEvent,
+  MixpanelBaseEventData,
+  MixpanelEventContext,
 } from './baseTypes.ts';
 
 /**
@@ -33,13 +33,13 @@ import {
  * }
  */
 export interface WebMixpanelEvent extends BaseMixpanelEvent {
-    context?: {
-        pathname?: string;
-        href?: string;
-        route?: string;
-        pwa?: boolean;
-    } & MixpanelEventContext;
-    data?: BaseEventData;
+  context?: {
+    pathname?: string;
+    href?: string;
+    route?: string;
+    pwa?: boolean;
+  } & MixpanelEventContext;
+  data?: BaseEventData;
 }
 
 /**
@@ -67,13 +67,13 @@ export interface WebMixpanelEvent extends BaseMixpanelEvent {
  *}
  */
 export interface WebMixpanelPageViewEvent {
-    context?: {
-        pwa?: boolean;
-    } & BaseEventContext;
-    data: {
-        title: string;
-        pathname: string;
-        href: string;
-        route: string;
-    } & MixpanelBaseEventData;
+  context?: {
+    pwa?: boolean;
+  } & BaseEventContext;
+  data: {
+    title: string;
+    pathname: string;
+    href: string;
+    route: string;
+  } & MixpanelBaseEventData;
 }
