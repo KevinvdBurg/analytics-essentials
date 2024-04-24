@@ -16,6 +16,7 @@ interface MixpanelProviderProps {
   children: React.ReactNode;
   trackingService: TrackingService;
   defaultEventContext?: WebMixpanelEvent['context'] | MobileMixpanelEvent['context'];
+  disableSessionStorage?: boolean;
 }
 
 const MixpanelContext = createContext<MixpanelContextProps | null>(null);
@@ -30,7 +31,12 @@ export function useMixpanelContext() {
   return context;
 }
 
-export function MixpanelProvider({ children, trackingService, defaultEventContext }: MixpanelProviderProps) {
+export function MixpanelProvider({
+  children,
+  trackingService,
+  defaultEventContext,
+  disableSessionStorage = false,
+}: MixpanelProviderProps) {
   const [eventContext, setEventContext] = useState<WebMixpanelEvent['context'] | MobileMixpanelEvent['context']>(
     defaultEventContext || {}
   );
@@ -62,13 +68,12 @@ export function MixpanelProvider({ children, trackingService, defaultEventContex
   );
 
   useEffect(() => {
-    // Only run on Web / Client
-    if (typeof window === 'undefined') {
+    if (disableSessionStorage) {
       return;
     }
 
     writeUtmParamsToSessionStorage(window.location.search);
-  }, []);
+  }, [disableSessionStorage]);
 
   return (
     <MixpanelContext.Provider
