@@ -17,7 +17,6 @@ export interface MobileMixpanelEvent extends BaseMixpanelEvent {
 export interface MobileMixpanelPageViewEvent {
     context?: BaseEventContext;
     data: {
-        title: string;
-        route: string;
+        pathname?: string;
     } & MixpanelBaseEventData;
 }

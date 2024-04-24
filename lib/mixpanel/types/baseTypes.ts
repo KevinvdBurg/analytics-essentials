@@ -18,11 +18,11 @@ export interface MixpanelEventContext extends BaseEventContext {
 }
 
 export interface MixpanelBaseEventData extends BaseEventData {
-    audience: string;
+    audience?: string;
 }
 
 export interface BaseMixpanelEvent {
-    name: string;
+    name?: string;
     context?: BaseEventContext;
     data?: BaseEventData;
 }
