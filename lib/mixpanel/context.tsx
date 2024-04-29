@@ -13,9 +13,29 @@ interface MixpanelContextProps {
 }
 
 interface MixpanelProviderProps {
+  /**
+   * Children to render
+   */
   children: React.ReactNode;
+  /**
+   * Tracking service to use included in this package are `WebTrackingService` and `MobileTrackingService`
+   * @see WebTrackingService use for web applications
+   * @see MobileTrackingService use for mobile applications, NOTE: set disableSessionStorage to true to disable session storage because it is not available in mobile
+   *
+   * if you want to use your own tracking service you can implement the `TrackingService` interface
+   * @see TrackingService
+   *
+   */
   trackingService: TrackingService;
+  /**
+   * Default event context to use for all events
+   * @see WebMixpanelEvent for web events
+   * @see MobileMixpanelEvent for mobile events
+   */
   defaultEventContext?: WebMixpanelEvent['context'] | MobileMixpanelEvent['context'];
+  /**
+   * Disables session storage for storing utm params
+   */
   disableSessionStorage?: boolean;
 }
 

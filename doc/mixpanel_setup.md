@@ -13,7 +13,12 @@ import { MixpanelProvider } from '@freshheads/analytics-essentials';
 
 const App = () => {
   return (
-    <MixpanelProvider eventApiClient={sendTrackEvent}>
+      <MixpanelProvider
+          trackingService={
+              new WebTrackingService((event) => {
+                  return sendTrackEvent(event);
+              })
+          }>
         <YourApp />
     </MixpanelProvider>
   );
@@ -83,7 +88,13 @@ const defaultMixpanelEventContext = {
 
 const App = () => {
   return (
-    <MixpanelProvider eventApiClient={sendTrackEvent} defaultEventContext={defaultMixpanelEventContext}>
+    <MixpanelProvider 
+        trackingService={
+            new WebTrackingService((event) => {
+                return sendTrackEvent(event);
+            })
+        } 
+        defaultEventContext={defaultMixpanelEventContext}>
         <YourApp />
     </MixpanelProvider>
   );
@@ -137,7 +148,12 @@ Then add this component to your app:
 
 const App = () => {
     return (
-        <MixpanelProvider eventApiClient={sendTrackEvent}>
+        <MixpanelProvider 
+            trackingService={
+                new WebTrackingService((event) => {
+                    return sendTrackEvent(event);
+                })
+            }>
             <TrackPageView />
             {children}
         </MixpanelProvider>
@@ -149,6 +165,12 @@ const App = () => {
 
 UTM tags are automatically added to the context of the event if they are present in the URL. 
 They will be remembered for the duration of the session. Even if the user navigates to a different page, the UTM tags will be added to new events.
+
+#### Mobile
+
+On mobile, the UTM tags can not be stored in the session, use `disableSessionStorage` to disable this behaviour.
+
+```tsx
 
 ## Mixpanel users
 
