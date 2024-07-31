@@ -6,13 +6,13 @@ import { TrackingService } from './tracking/TrackingService.ts';
 import { WebMixpanelEvent, WebMixpanelPageViewEvent } from './types/webTypes.ts';
 import { MobileMixpanelEvent, MobileMixpanelPageViewEvent } from './types/mobileTypes.ts';
 
-interface MixpanelContextProps {
+export interface MixpanelContextProps {
   trackEvent: (event: WebMixpanelEvent | MobileMixpanelEvent) => void;
   trackPageView: (event: WebMixpanelPageViewEvent | MobileMixpanelPageViewEvent) => void;
   setEventContext: (context: WebMixpanelEvent['context'] | MobileMixpanelEvent['context']) => void;
 }
 
-interface MixpanelProviderProps {
+export interface MixpanelProviderProps {
   /**
    * Children to render
    */
@@ -58,7 +58,7 @@ export function MixpanelProvider({
   disableSessionStorage = false,
 }: MixpanelProviderProps) {
   const [eventContext, setEventContext] = useState<WebMixpanelEvent['context'] | MobileMixpanelEvent['context']>(
-    defaultEventContext || {}
+    defaultEventContext || {},
   );
 
   const trackEvent = useCallback(
@@ -71,7 +71,7 @@ export function MixpanelProvider({
         },
       });
     },
-    [trackingService, eventContext]
+    [trackingService, eventContext],
   );
 
   const trackPageView = useCallback(
@@ -83,7 +83,7 @@ export function MixpanelProvider({
         },
       });
     },
-    [trackingService]
+    [trackingService],
   );
 
   useEffect(() => {
@@ -100,7 +100,8 @@ export function MixpanelProvider({
         trackEvent,
         trackPageView,
         setEventContext,
-      }}>
+      }}
+    >
       {children}
     </MixpanelContext.Provider>
   );
